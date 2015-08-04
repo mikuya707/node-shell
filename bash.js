@@ -8,7 +8,8 @@ var commandDirectory={
 	cat: commands.cat,
 	head: commands.head,
 	tail: commands.tail,
-	wc: commands.wc
+	wc: commands.wc,
+	curl: commands.curl
 }
 //Output a prompt
 

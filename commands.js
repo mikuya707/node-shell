@@ -1,4 +1,5 @@
 var fs = require('fs');
+var request = require('request');
 module.exports.pwd = function(){
 	process.stdout.write(process.cwd());
 	process.stdout.write("\nprompt >");
@@ -84,4 +85,15 @@ module.exports.wc = function(){
 			process.stdout.write("\nprompt >");
 		});
 	}	
+}
+
+module.exports.curl = function(){
+	if(arguments[0]){
+		request(arguments[0], function(error,response,body){
+			if(!error && response.statusCode === 200){
+				console.log(body);
+			}
+			process.stdout.write("\nprompt >");
+		});
+	}
 }
