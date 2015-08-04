@@ -38,11 +38,13 @@ module.exports.head = function(){
 	if(arguments[0]){
 		fs.readFile(arguments[0], 'utf8', function(err, data){
 			if(err) throw err;
-			data = data.match(/(.*)/g);
+			var dataArr = data.match(/(.*\n)/g);
+			//console.log(data.match(/(.*)$/));
+			dataArr.push(data.match(/\n(.*)$/)[1]);
 
 			//data = data.;
-			for(var i = 0; i < Math.min(10, data.length/2); i++){
-				process.stdout.write(data[i*2]+'\n');
+			for(var i = 0; i < Math.min(10, dataArr.length); i++){
+				process.stdout.write(dataArr[i]);
 			}
 			//process.stdout.write();
 			process.stdout.write("\nprompt >");
@@ -54,14 +56,16 @@ module.exports.tail = function(){
 	if(arguments[0]){
 		fs.readFile(arguments[0], 'utf8', function(err, data){
 			if(err) throw err;
-			data = data.match(/(.*)/g);
+			var dataArr = data.match(/(.*\n)/g);
+			//console.log(data.match(/(.*)$/));
+			dataArr.push(data.match(/\n(.*)$/)[1]);
 
 			//data = data.;
-			for(var i = Math.max(0, data.length/2 - 10); i < data.length/2; i++){
-				process.stdout.write(data[i*2] +'\n');
+			for(var i = Math.max(0, dataArr.length - 10); i < dataArr.length; i++){
+				process.stdout.write(dataArr[i]);
 			}
 			//process.stdout.write();
-			process.stdout.write("\nprompt >");
+			process.stdout.write("\n\nprompt >");
 		});
 	}	
 }
@@ -70,13 +74,13 @@ module.exports.wc = function(){
 	if(arguments[0]){
 		fs.readFile(arguments[0], 'utf8', function(err, data){
 			if(err) throw err;
-			data = data.match(/(.*)/g);
+			data = data.match(/(.*\n)/g);
 
 			//data = data.;
 			// for(var i = Math.max(0, data.length/2 - 10); i < data.length/2; i++){
 			// 	process.stdout.write(data[i*2] +'\n');
 			// }
-			process.stdout.write((data.length/2).toString());
+			process.stdout.write((data.length+1).toString());
 			process.stdout.write("\nprompt >");
 		});
 	}	
