@@ -36,11 +36,47 @@ module.exports.cat = function(){
 
 module.exports.head = function(){
 	if(arguments[0]){
-		fs.readFile(arguments[0], String, function(err, data){
+		fs.readFile(arguments[0], 'utf8', function(err, data){
 			if(err) throw err;
-			
-			data=data.match(/^(.*\n{10}).*/);
-			//process.stdout.write(data);
+			data = data.match(/(.*)/g);
+
+			//data = data.;
+			for(var i = 0; i < Math.min(10, data.length/2); i++){
+				process.stdout.write(data[i*2]+'\n');
+			}
+			//process.stdout.write();
+			process.stdout.write("\nprompt >");
+		});
+	}	
+}
+
+module.exports.tail = function(){
+	if(arguments[0]){
+		fs.readFile(arguments[0], 'utf8', function(err, data){
+			if(err) throw err;
+			data = data.match(/(.*)/g);
+
+			//data = data.;
+			for(var i = Math.max(0, data.length/2 - 10); i < data.length/2; i++){
+				process.stdout.write(data[i*2] +'\n');
+			}
+			//process.stdout.write();
+			process.stdout.write("\nprompt >");
+		});
+	}	
+}
+
+module.exports.wc = function(){
+	if(arguments[0]){
+		fs.readFile(arguments[0], 'utf8', function(err, data){
+			if(err) throw err;
+			data = data.match(/(.*)/g);
+
+			//data = data.;
+			// for(var i = Math.max(0, data.length/2 - 10); i < data.length/2; i++){
+			// 	process.stdout.write(data[i*2] +'\n');
+			// }
+			process.stdout.write((data.length/2).toString());
 			process.stdout.write("\nprompt >");
 		});
 	}	

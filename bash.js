@@ -6,9 +6,12 @@ var commandDirectory={
 	ls: commands.ls,
 	echo: commands.echo,
 	cat: commands.cat,
-	head: commands.head
+	head: commands.head,
+	tail: commands.tail,
+	wc: commands.wc
 }
 //Output a prompt
+
 process.stdout.write('prompt >');
 //var time = new date(UTC);
 //The stdin 'data' event fires after a user types in a line
